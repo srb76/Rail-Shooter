@@ -20,6 +20,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] float positionYawFactor = 2.2f;
     [SerializeField] float controlRollFactor = -20f;
 
+    [SerializeField] GameObject[] lasers;
+
     bool controlEnabled = true;
 
     // Start is called before the first frame update
@@ -35,6 +37,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             ProcessTranslation();
             ProcessRotation();
+            ProcessFiring();
         }
     }
 
@@ -71,6 +74,24 @@ public class PlayerMovementController : MonoBehaviour
         rawY = Mathf.Clamp(rawY, -yRange, yRange);
 
         transform.localPosition = new Vector3(rawX, rawY, transform.localPosition.z);
+    }
+
+    private void ProcessFiring()
+    {
+        if (CrossPlatformInputManager.GetButton("Fire"))
+        {
+            foreach(GameObject laser in lasers)
+            {
+                laser.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach(GameObject laser in lasers)
+            {
+                laser.SetActive(false);
+            }
+        }
     }
 
     private void Death()

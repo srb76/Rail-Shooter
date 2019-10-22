@@ -81,4 +81,4 @@ Material:
     - WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _horizonColor: {r: 0.62992966, g: 0.28622285, b: 0.9056604, a: 0}
+    - _horizonColor: {r: 0.62992966, g: 0.28622285, b: 0.9056604, a: 1}

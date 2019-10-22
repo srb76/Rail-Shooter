@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
     [SerializeField] int ScorePerHit = 1;
+    [SerializeField] int hitpoints = 1;
     Collider boxCollider;
     ScoreBoard scoreboard;
     // Start is called before the first frame update
@@ -31,6 +32,21 @@ public class Enemy : MonoBehaviour
         //update score
         scoreboard.addScore(ScorePerHit);
 
+        //subtract hitpoints and check death
+        hitpoints--;
+
+        if(hitpoints < 1)
+        {
+            Die();
+        }
+        else
+        {
+            //play effect?
+        }
+    }
+
+    private void Die()
+    {
         GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
         fx.transform.parent = parent;
         Destroy(gameObject);
