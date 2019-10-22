@@ -4,21 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     float xThrow, yThrow;
     float xOffset, yOffset;
     float rawX, rawY;
 
-    [Tooltip("In m/s")][SerializeField] float xSpeed = 25f;
-    [SerializeField] float xRange = 15f;
-    [Tooltip("In m/s")] [SerializeField] float ySpeed = 25f;
-    [SerializeField] float yRange = 8f;
+    [Tooltip("In m/s")][SerializeField] float xSpeed = 20f;
+    [SerializeField] float xRange = 20f;
+    [Tooltip("In m/s")] [SerializeField] float ySpeed = 20f;
+    [SerializeField] float yRange = 12f;
 
     [SerializeField] float positionPitchFactor = -2f;
     [SerializeField] float controlPitchFactor = -20f;
-    [SerializeField] float positionYawFactor = 3f;
+    [SerializeField] float positionYawFactor = 2.2f;
     [SerializeField] float controlRollFactor = -20f;
+
+    bool controlEnabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,21 +28,14 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        print("Player collided with something!");
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        print("Player triggered something!");
-    }
-
     // Update is called once per frame
     void Update()
     {
-        ProcessTranslation();
-        ProcessRotation();
+        if (controlEnabled)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }
     }
 
     private void ProcessRotation()
@@ -76,5 +71,11 @@ public class Player : MonoBehaviour
         rawY = Mathf.Clamp(rawY, -yRange, yRange);
 
         transform.localPosition = new Vector3(rawX, rawY, transform.localPosition.z);
+    }
+
+    private void Death()
+    {
+        print("Controls disabled.");
+        controlEnabled = false;
     }
 }
