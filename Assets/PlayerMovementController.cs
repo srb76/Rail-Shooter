@@ -82,14 +82,16 @@ public class PlayerMovementController : MonoBehaviour
         {
             foreach(GameObject laser in lasers)
             {
-                laser.SetActive(true);
+                var em = laser.GetComponent<ParticleSystem>().emission;
+                em.enabled = true;
             }
         }
         else
         {
             foreach(GameObject laser in lasers)
             {
-                laser.SetActive(false);
+                var em = laser.GetComponent<ParticleSystem>().emission;
+                em.enabled = false;
             }
         }
     }
